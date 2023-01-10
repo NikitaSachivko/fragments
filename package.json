@@ -11,5 +11,8 @@
     "url": "git+https://nsachivko@github.com/nsachivko/fragments.git"
   },
   "author": "Nikita Sachivko",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "prettier": "2.8.2"
+  }
 }
