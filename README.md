@@ -3,18 +3,20 @@
 # fragments
 Repo for CCP projects
 
-# EsLint
+# EsLint - runs code check 
 npm run lint
 
-# To Start App
+# To Start App - starts app without hot reload
 npm start
 
-# To Run Dev
+# To Run Dev - runs app with hot reload
 npm run dev
 
-# To Run Debug
+# To Run Debug - starts app and hits break point
 npm run debug
 
-
-
+# Curl
+curl -s localhost:8080 | jq
+-I fetches headers only 
+-i includes response headers 
 
