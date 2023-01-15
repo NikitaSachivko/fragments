@@ -17,6 +17,10 @@ npm run debug
 
 # Curl
 curl -s localhost:8080 | jq
+
+**-I**
 -I fetches headers only 
+
+**-i**
 -i includes response headers 
 
