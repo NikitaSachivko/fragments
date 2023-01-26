@@ -36,6 +36,18 @@ app.use(passport.initialize())
 // Define our routes
 app.use('/', require('./routes'))
 
+// Add 404 middleware to handle any requests for resources that can't be found can't be found
+app.use((req, res) => {
+  // Pass along an error object to the error-handling middleware
+  res.status(404).json({
+    status: 'error',
+    error: {
+      message: 'not found',
+      code: 404,
+    },
+  })
+})
+
 // Add error-handling middleware to deal with anything else
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
