@@ -15,7 +15,7 @@ const app = express()
 
 const passport = require('passport')
 
-const authenticate = require('./authentication')
+const authenticate = require('./authorization/index')
 
 // Use logging middleware
 app.use(pino)
