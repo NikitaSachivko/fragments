@@ -105,7 +105,7 @@ class Fragment {
 
     await writeFragmentData(this.ownerId, this.id, data)
     this.updated = new Date().toISOString()
-    this.size++
+    this.size = data.length
     return Promise.resolve()
   }
 
