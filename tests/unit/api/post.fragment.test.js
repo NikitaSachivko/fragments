@@ -1,7 +1,7 @@
 const request = require('supertest')
 const app = require('../../../src/app')
 
-describe('Testing successful POST request', () => {
+describe('Testing POST request', () => {
 
   // Case when all parameters are correct
   test('correct data', async () => {
@@ -57,7 +57,7 @@ describe('Testing successful POST request', () => {
       .set("Content-Type", "text/html")
       .send("This is a fragment")
 
-    expect(response.body.error.code.code).toEqual(415)
-    expect(response.body.error.code.message).toEqual("Unsupported Content-Type")
+    expect(response.body.error.code).toEqual(415)
+    expect(response.body.error.message).toEqual("Unsupported Content-Type")
   })
 })

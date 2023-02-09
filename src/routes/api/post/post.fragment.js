@@ -7,16 +7,13 @@ module.exports = async (req, res) => {
 
   // Check if the "Content-Type" is supported by the Fragment model
   if (!Fragment.isSupportedType(contentType)) {
-    logger.warn("Unsupported Content-Type: %s", contentType)
+    logger.error("Unsupported Content-Type: %s", contentType)
 
     // Return a 415 "Unsupported Media Type" error response
     res
       .status(415)
       .json(
-        createErrorResponse({
-          code: 415,
-          message: "Unsupported Content-Type",
-        })
+        createErrorResponse(415, "Unsupported Content-Type",)
       )
     return
   }

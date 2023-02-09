@@ -53,10 +53,12 @@ module.exports = async (req, res) => {
   if (!Fragment.isSupportedType(type)) {
 
     // Log a warning if the content type is not supported
-    logger.warn(`Unsupported content type: "${extension}"`)
+    logger.warn(`Unsupported Content-Type: "${extension}"`)
 
     // Return a 404 response with a custom error message
-    res.status(415).json(createErrorResponse({ code: 415, message: `Unsupported content type: "${extension}"` }))
+    res.status(415).json(createErrorResponse(415, `Unsupported Content-Type: "${extension}"`))
+
+    return
   }
 
   try {
@@ -74,6 +76,8 @@ module.exports = async (req, res) => {
 
   } catch (error) {
     logger.error(`Error getting fragment with id "${id}": ${error}`)
-    res.status(400).json(createErrorResponse({ code: 400, message: `No fragment with id = ${id}` }))
+    res.status(400).json(createErrorResponse(400, `No fragment with id = ${id}`))
+
+    return
   }
 }

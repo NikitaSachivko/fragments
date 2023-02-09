@@ -26,7 +26,9 @@ const rawBody = () =>
     },
   })
 
-router.get('/fragments', require('./get/get.fragments'))
+
+// Will be done in future
+// router.get('/fragments', require('./get/get.fragments'))
 
 router.get('/fragments/:id', require('./get/get.fragment.byId'))
 
