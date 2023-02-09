@@ -1,6 +1,7 @@
 const { Fragment } = require("../../../model/fragment")
 const { createErrorResponse, createSuccessResponse } = require("../../../response")
 const logger = require("../../../logger")
+const hashEmail = require('../../../helper_functions/email-to-hash')
 
 module.exports = async (req, res) => {
   const contentType = req.headers["content-type"]
@@ -18,10 +19,8 @@ module.exports = async (req, res) => {
     return
   }
 
-  const authorization = req.headers.authorization
-
-  // Extract the ownerId from the "Authorization" header
-  const ownerId = authorization.split(" ")[1]
+  // Hash user's email
+  const ownerId = hashEmail(req.user)
 
   const fragment = new Fragment({
     ownerId,

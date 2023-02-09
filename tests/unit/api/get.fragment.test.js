@@ -73,4 +73,14 @@ describe('Testing GET request', () => {
     expect(responseGet.headers["content-type"]).toContain("text/plain")
     expect(Number(responseGet.headers["content-length"])).toBe(18)
   })
+
+
+  // Checking content length
+  test('Wrong content-type test', async () => {
+    const responseGet = await request(app)
+      .get(`/v1/fragments/${responsePost.body.fragment.id}.txt`)
+      .auth("user1@email.com", "password1")
+
+    expect(responseGet.headers).toHaveProperty("content-length", "18") // checking if size = 18
+  })
 })

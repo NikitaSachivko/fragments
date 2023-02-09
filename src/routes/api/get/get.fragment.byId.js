@@ -2,45 +2,15 @@
 const { Fragment } = require('../../../model/fragment')
 const { createErrorResponse } = require('../../../response')
 const logger = require('../../../logger')
-
-
-// Function to convert file extension to content type
-const extensionToContentType = (extension) => {
-
-  // Use a switch statement to match the extension to the corresponding content type
-  switch (extension) {
-    case "html":
-      return "text/html"
-    case "txt":
-      return "text/plain"
-    case "md":
-      return "text/markdown"
-    case "json":
-      return "application/json"
-    case "png":
-      return "image/png"
-    case "jpg":
-    case "jpeg":
-      return "image/jpeg"
-    case "webp":
-      return "image/webp"
-    case "gif":
-      return "image/gif"
-    case "": // Empty extension counted as text/plain
-      return "text/plain"
-    default:
-      return "not supported type"
-  }
-}
-
+const hashEmail = require('../../../helper_functions/email-to-hash')
+const extensionToContentType = require('../../../helper_functions/extension-to-content-type')
 
 /**
  * Get a list of fragments for the current user
  */
 module.exports = async (req, res) => {
 
-  // Get the owner id from the authorization header
-  const ownerId = req.headers.authorization.split(' ')[1]
+  const ownerId = hashEmail(req.user)
 
   // Get the fragment id and extension from the URL parameters
   // If extension is not present, default to an empty string
