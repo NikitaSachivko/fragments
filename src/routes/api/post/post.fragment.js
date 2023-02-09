@@ -1,7 +1,6 @@
 const { Fragment } = require("../../../model/fragment")
 const { createErrorResponse, createSuccessResponse } = require("../../../response")
 const logger = require("../../../logger")
-const hashEmail = require('../../../helper_functions/email-to-hash')
 
 module.exports = async (req, res) => {
   const contentType = req.headers["content-type"]
@@ -20,7 +19,7 @@ module.exports = async (req, res) => {
   }
 
   // Hash user's email
-  const ownerId = hashEmail(req.user)
+  const ownerId = req.user
 
   const fragment = new Fragment({
     ownerId,

@@ -23,7 +23,7 @@ const extensionToContentType = (extension) => {
     case "": // Empty extension counted as text/plain
       return "text/plain"
     default:
-      return "not supported type"
+      return "Not supported extension"
   }
 }
 

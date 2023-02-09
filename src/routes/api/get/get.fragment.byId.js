@@ -2,7 +2,6 @@
 const { Fragment } = require('../../../model/fragment')
 const { createErrorResponse } = require('../../../response')
 const logger = require('../../../logger')
-const hashEmail = require('../../../helper_functions/email-to-hash')
 const extensionToContentType = require('../../../helper_functions/extension-to-content-type')
 
 /**
@@ -10,7 +9,7 @@ const extensionToContentType = require('../../../helper_functions/extension-to-c
  */
 module.exports = async (req, res) => {
 
-  const ownerId = hashEmail(req.user)
+  const ownerId = req.user
 
   // Get the fragment id and extension from the URL parameters
   // If extension is not present, default to an empty string
