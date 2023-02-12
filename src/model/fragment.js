@@ -45,7 +45,13 @@ class Fragment {
    * @returns Promise<Array<Fragment>>
    */
   static async byUser(ownerId, expand = false) {
-    const result = await listFragments(ownerId, expand)
+    let result
+    try {
+      result = await listFragments(ownerId, expand)
+    } catch (error) {
+      throw new Error(`Can not list fragment`)
+    }
+
     return result
   }
 
@@ -56,10 +62,15 @@ class Fragment {
    * @returns Promise<Fragment>
    */
   static async byId(ownerId, id) {
-    const fragment = await readFragment(ownerId, id)
+    let fragment
+    try {
+      fragment = await readFragment(ownerId, id)
+    } catch (error) {
+      throw new Error(`Can not read fragment`)
+    }
 
     if (!fragment)
-      throw new Error(`no fragment found`)
+      throw new Error(`No fragment found`)
 
     return Promise.resolve(fragment)
   }
@@ -103,9 +114,13 @@ class Fragment {
     if (!data)
       throw new Error(`Buffer is not given`)
 
-    await writeFragmentData(this.ownerId, this.id, data)
-    this.updated = new Date().toISOString()
-    this.size = data.length
+    try {
+      await writeFragmentData(this.ownerId, this.id, data)
+      this.updated = new Date().toISOString()
+      this.size = data.length
+    } catch (error) {
+      throw new Error(`Can not write fragment`)
+    }
     return Promise.resolve()
   }
 
@@ -124,7 +139,7 @@ class Fragment {
    * @returns {boolean} true if fragment's type is text/*
    */
   get isText() {
-    return this.type.includes('text/')
+    return this.mimeType.startsWith('text/')
   }
 
   /**
@@ -132,7 +147,11 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
-    return [this.mimeType]
+    if (this.isText) {
+      return ['text/plain']
+    } else {
+      return []
+    }
   }
 
   /**
