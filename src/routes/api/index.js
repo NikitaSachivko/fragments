@@ -30,7 +30,7 @@ const rawBody = () =>
 // Will be done in future
 router.get('/fragments', require('./get/get.fragments'))
 
-router.get('/fragments/:id', require('./get/get.fragment.byId'))
+router.get('/fragments/:id', require('./get/get.fragment.by-id'))
 
 // Will be done in future
 // router.put('/fragments/:id', rawBody(), require('./put/put.fragment.byId'))

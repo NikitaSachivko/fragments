@@ -16,7 +16,7 @@ npm run dev
 npm run debug
 
 # Curl
-curl -s localhost:8080 | jq
+curl -s localhost:9000 | jq
 
 
 -I fetches headers only 

@@ -1,4 +1,4 @@
-const extensionToContentType = require('../../../src/helper_functions/extension-to-content-type')
+const extensionToContentType = require('../../../src/helper-functions/extension-to-content-type')
 
 
 describe('testing extension convert', () => {

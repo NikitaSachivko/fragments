@@ -2,7 +2,7 @@
 const { Fragment } = require('../../../model/fragment')
 const { createErrorResponse } = require('../../../response')
 const logger = require('../../../logger')
-const extensionToContentType = require('../../../helper_functions/extension-to-content-type')
+const extensionToContentType = require('../../../helper-functions/extension-to-content-type')
 
 /**
  * Get a list of fragments for the current user
