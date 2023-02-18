@@ -38,7 +38,7 @@ module.exports = async (req, res) => {
 
     // Convert the buffer to a string in utf8 encoding
     // Fix XSS issue
-    const textPlain = escape(buffer.toString('utf8'))
+    const textPlain = req.sanitize(buffer.toString('utf8'))
 
     res.setHeader('Content-Type', type)
     res.status(200).send(textPlain)

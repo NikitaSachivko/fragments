@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const helmet = require('helmet')
 const compression = require('compression')
+const expressSanitizer = require('express-sanitizer')
 
 const logger = require('./logger')
 const pino = require('pino-http')({
@@ -31,6 +32,8 @@ app.use(cors())
 
 // Use gzip/deflate compression middleware
 app.use(compression())
+
+app.use(expressSanitizer())
 
 // Set up our passport authentication middleware
 passport.use(authenticate.strategy())
