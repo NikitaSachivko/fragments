@@ -51,7 +51,6 @@ class Fragment {
     } catch (error) {
       throw new Error(`Can not list fragment`)
     }
-
     return result
   }
 

@@ -1,4 +1,3 @@
-// Our module for creating responses
 const { Fragment } = require('../../../model/fragment')
 const { createErrorResponse } = require('../../../response')
 const logger = require('../../../logger')
@@ -38,7 +37,8 @@ module.exports = async (req, res) => {
     const buffer = await fragment.getData()
 
     // Convert the buffer to a string in utf8 encoding
-    const textPlain = buffer.toString('utf8')
+    // Fix XSS issue
+    const textPlain = escape(buffer.toString('utf8'))
 
     res.setHeader('Content-Type', type)
     res.status(200).send(textPlain)

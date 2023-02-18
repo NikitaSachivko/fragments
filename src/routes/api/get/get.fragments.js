@@ -1,30 +1,42 @@
-// Our module for creating responses
-// const { Fragment } = require('../../../model/fragment')
-// const { createErrorResponse, createSuccessResponse } = require('../../../response')
-// const logger = require('../../../logger')
-const { createSuccessResponse } = require('../../../response')
+const { Fragment } = require('../../../model/fragment')
+const { createErrorResponse, createSuccessResponse } = require('../../../response')
+const logger = require('../../../logger')
+
 /**
  * Get a list of fragments for the current user
  */
 module.exports = async (req, res) => {
-  // const expand = Number(req.query.expand) || 0
+  try {
+    // Extract the 'expand' parameter from the query string
+    const expand = Number(req.query.expand) || 0
 
-  // if (expand != 1 && expand != 0) {
-  //   res.status(400).json(createErrorResponse(
-  //     { status: 'error', code: 400, message: 'Wrong `expand` parameter, only 1 or 0 is possible' }
-  //   ))
-  // } else {
+    // Validate the 'expand' parameter
+    if (![0, 1].includes(expand)) {
+      return res.status(400).json(createErrorResponse({
+        status: 'error',
+        code: 400,
+        message: 'Invalid value for `expand` parameter. Only `1` or `0` is allowed.'
+      }))
+    }
 
-  //   const ownerId = req.headers.authorization.split(' ')[1]
+    // Extract the ownerId from the authenticated user in the request
+    const ownerId = req.user
 
-  //   if (expand == 1)
-  //     logger.info("Fragments expanded")
-  //   else
-  //     logger.info("Only the fragment identifiers will be shown")
+    // Log the appropriate message based on the 'expand' parameter
+    logger.info(expand === 1 ? 'Fragments expanded' : 'Only fragment identifiers will be shown')
 
-  //   const fragments = await Fragment.byUser(ownerId, expand == 1)
-  //   res.status(200).json(createSuccessResponse({ fragments: fragments }))
-  // }
+    // Query the database for the fragments owned by the user with the specified 'expand' value
+    const fragments = await Fragment.byUser(ownerId, expand === 1)
 
-  res.status(200).json(createSuccessResponse({ fragments: [] }))
+    // Return the response with the list of fragments in a success JSON payload
+    return res.status(200).json(createSuccessResponse({ fragments }))
+  } catch (err) {
+    // Handle any unexpected errors
+    logger.error(err)
+    return res.status(500).json(createErrorResponse({
+      status: 'error',
+      code: 500,
+      message: 'Can not fetch fragments'
+    }))
+  }
 }
