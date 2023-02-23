@@ -1,10 +1,12 @@
 const request = require('supertest')
 const app = require('../../../src/app')
+const hash = require('../../../src/hash')
 
 describe('Testing POST request', () => {
 
   // Case when all parameters are correct
   test('correct data', async () => {
+    const ownerId = hash("user1@email.com")
 
     const response = await request(app)
       .post("/v1/fragments")
@@ -19,6 +21,10 @@ describe('Testing POST request', () => {
     expect(response.body.fragment).toHaveProperty("size", 18) // checking if size = 18
     expect(response.header).toHaveProperty("location") // checking if location header is set correctly
     expect(response.header.location).toContain(`/v1/fragments/${response.body.fragment.id}`)
+
+    expect(response.body.fragment.ownerId).toBe(ownerId)
+    expect(response.body.fragment.size).toBe(18)
+    expect(response.body.fragment.type).toBe('text/plain')
   })
 
 

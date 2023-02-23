@@ -13,12 +13,10 @@ module.exports = async (req, res) => {
 
   // Get the fragment id and extension from the URL parameters
   // If extension is not present, default to an empty string
-  let { name: id, ext: extension } = path.parse(req.params.id)
-
-  extension = extension || ".txt"
+  const { name: id, ext: extension } = path.parse(req.params.id)
 
   // Get the content type based on the extension
-  const type = mime.lookup(extension)
+  const type = mime.lookup(extension || '.txt')
 
   // Check if the content type is supported
   if (!Fragment.isSupportedType(type)) {
