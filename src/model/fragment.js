@@ -81,7 +81,7 @@ class Fragment {
    * @returns Promise<void>
    */
   static delete(ownerId, id) {
-    deleteFragment(ownerId, id)
+    return deleteFragment(ownerId, id)
   }
 
   /**
@@ -90,8 +90,7 @@ class Fragment {
    */
   save() {
     this.updated = new Date().toISOString()
-    writeFragment(this)
-    return Promise.resolve()
+    return writeFragment(this)
   }
 
   /**
