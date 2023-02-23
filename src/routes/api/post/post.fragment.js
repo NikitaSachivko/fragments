@@ -20,15 +20,20 @@ module.exports = async (req, res) => {
 
   // Hash user's email
   const ownerId = req.user
+  let fragment
 
-  const fragment = new Fragment({
-    ownerId,
-    type: contentType,
-    size: Number(req.headers["content-length"]),
-  })
-
-  fragment.save()
-  logger.info("Fragment saved: %s", fragment.id)
+  try {
+    fragment = new Fragment({
+      ownerId,
+      type: contentType,
+      size: Number(req.headers["content-length"]),
+    })
+    fragment.save()
+    logger.info("Fragment saved: %s", fragment.id)
+  } catch (err) {
+    logger.error(`Can not create new fragment`)
+    return
+  }
 
   try {
     await fragment.setData(req.body)

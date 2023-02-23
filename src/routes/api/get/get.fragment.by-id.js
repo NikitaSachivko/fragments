@@ -1,7 +1,8 @@
 const { Fragment } = require('../../../model/fragment')
 const { createErrorResponse } = require('../../../response')
 const logger = require('../../../logger')
-const extensionToContentType = require('../../../helper-functions/extension-to-content-type')
+const path = require('path')
+const mime = require('mime-types')
 
 /**
  * Get a list of fragments for the current user
@@ -12,10 +13,12 @@ module.exports = async (req, res) => {
 
   // Get the fragment id and extension from the URL parameters
   // If extension is not present, default to an empty string
-  const [id, extension = ''] = req.params.id.split('.')
+  let { name: id, ext: extension } = path.parse(req.params.id)
+
+  extension = extension || ".txt"
 
   // Get the content type based on the extension
-  const type = extensionToContentType(extension)
+  const type = mime.lookup(extension)
 
   // Check if the content type is supported
   if (!Fragment.isSupportedType(type)) {

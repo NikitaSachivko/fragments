@@ -82,7 +82,6 @@ class Fragment {
    */
   static delete(ownerId, id) {
     deleteFragment(ownerId, id)
-    return Promise.resolve()
   }
 
   /**
@@ -90,8 +89,8 @@ class Fragment {
    * @returns Promise<void>
    */
   save() {
-    writeFragment(this)
     this.updated = new Date().toISOString()
+    writeFragment(this)
     return Promise.resolve()
   }
 
@@ -100,8 +99,7 @@ class Fragment {
    * @returns Promise<Buffer>
    */
   getData() {
-    const buffer = readFragmentData(this.ownerId, this.id)
-    return Promise.resolve(buffer)
+    return Promise.resolve(readFragmentData(this.ownerId, this.id))
   }
 
   /**
@@ -117,6 +115,7 @@ class Fragment {
       await writeFragmentData(this.ownerId, this.id, data)
       this.updated = new Date().toISOString()
       this.size = data.length
+      this.save()
     } catch (error) {
       throw new Error(`Can not write fragment`)
     }
