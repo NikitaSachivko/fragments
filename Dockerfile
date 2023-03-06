@@ -26,7 +26,7 @@ COPY ./src ./src
 
 COPY ./tests/.htpasswd ./tests/.htpasswd
 
-CMD npm run start
+CMD ["npm", "run", "start"]
 
 EXPOSE 9000
 
