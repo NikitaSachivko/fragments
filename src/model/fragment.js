@@ -144,10 +144,13 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
-    if (this.isText) {
-      return ['text/plain']
-    } else {
-      return []
+    switch (this.mimeType) {
+      case "text/plain":
+        return ["text/plain"]
+      case "text/markdown":
+        return ["text/plain", "text/markdown", "text/html"]
+      default:
+        return []
     }
   }
 
@@ -160,6 +163,12 @@ class Fragment {
     const { type } = contentType.parse(value)
     switch (type) {
       case 'text/plain':
+        return true
+      case 'text/markdown':
+        return true
+      case 'text/html':
+        return true
+      case 'application/json':
         return true
       default:
         return false

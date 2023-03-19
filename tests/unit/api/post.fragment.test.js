@@ -60,8 +60,8 @@ describe('Testing POST request', () => {
     const response = await request(app)
       .post("/v1/fragments")
       .auth("user1@email.com", "password1")
-      .set("Content-Type", "text/html")
-      .send("This is a fragment")
+      .set("Content-Type", "image/png")
+      .send("http://imageurl")
 
     expect(response.body.error.code).toEqual(415)
     expect(response.body.error.message).toEqual("Unsupported Content-Type")

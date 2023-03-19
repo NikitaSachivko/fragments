@@ -3,32 +3,18 @@ const { createErrorResponse } = require('../../../response')
 const logger = require('../../../logger')
 const path = require('path')
 const mime = require('mime-types')
+const { convert } = require('../../../fragmentConverter')
 
 /**
  * Get a list of fragments for the current user
  */
 module.exports = async (req, res) => {
-
   const ownerId = req.user
 
   // Get the fragment id and extension from the URL parameters
   // If extension is not present, default to an empty string
   const { name: id, ext: extension } = path.parse(req.params.id)
 
-  // Get the content type based on the extension
-  const type = mime.lookup(extension || '.txt')
-
-  // Check if the content type is supported
-  if (!Fragment.isSupportedType(type)) {
-
-    // Log a warning if the content type is not supported
-    logger.warn(`Unsupported Content-Type: "${extension}"`)
-
-    // Return a 404 response with a custom error message
-    res.status(415).json(createErrorResponse(415, `Unsupported Content-Type: "${extension}"`))
-
-    return
-  }
 
   try {
     // Get the fragment by its id and owner id
@@ -37,16 +23,43 @@ module.exports = async (req, res) => {
     // Get the data of the fragment
     const buffer = await fragment.getData()
 
+    const formats = fragment.formats
+
+    // Get the content type based on the extension
+    const type = mime.lookup(extension) || fragment.type
+
+    let output = buffer
+
+    // If type is the same with fragment type, then we don't need to convert
+    if (fragment.type !== type) {
+      if (!formats.includes(type)) {
+        logger.warn(`Type ${fragment.type} can not be converted to: "${extension}"`)
+
+        res.status(415).json(createErrorResponse(415, `Type ${fragment.type} can not be converted to: "${extension}"`))
+
+        return
+      }
+
+      output = convert(type, buffer)
+
+      fragment.type = type
+      fragment.size = output.length
+
+      await fragment.setData(output)
+
+      fragment.save()
+    }
+
     // Convert the buffer to a string in utf8 encoding
     // Fix XSS issue
-    const textPlain = req.sanitize(buffer.toString('utf8'))
+    const textPlain = req.sanitize(output.toString('utf8'))
 
     res.setHeader('Content-Type', type)
     res.status(200).send(textPlain)
 
   } catch (error) {
     logger.error(`Error getting fragment with id "${id}": ${error}`)
-    res.status(400).json(createErrorResponse(400, `No fragment with id = ${id}`))
+    res.status(400).json(createErrorResponse(400, `Error getting fragment with id "${id}": ${error}`))
 
     return
   }
