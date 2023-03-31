@@ -18,6 +18,6 @@ module.exports = async (req, res) => {
 
   } catch (error) {
     logger.error(`Error deleting fragment with id "${id}": ${error}`)
-    res.status(400).json(createErrorResponse(404, `Error deleting fragment with id "${id}"`))
+    res.status(404).json(createErrorResponse(404, `Error deleting fragment with id "${id}"`))
   }
 }
