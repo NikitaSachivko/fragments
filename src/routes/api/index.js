@@ -29,9 +29,11 @@ const rawBody = () =>
 
 router.get('/fragments', rawBody(), require('./get/get.fragments'))
 
-router.get('/fragments/:id', require('./get/get.fragment.by-id'))
+router.get('/fragments/:id', rawBody(), require('./get/get.fragment.by-id'))
 
-router.get('/fragments/:id/info', require('./get/get.fragment.by-id.info'))
+router.get('/fragments/:id/info', rawBody(), require('./get/get.fragment.by-id.info'))
+
+router.delete('/fragments/:id', rawBody(), require('./delete/delete.fragment.by-id'))
 
 // Will be done in future
 // router.put('/fragments/:id', rawBody(), require('./put/put.fragment.byId'))
