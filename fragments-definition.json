@@ -31,6 +31,10 @@
         {
           "name": "AWS_COGNITO_CLIENT_ID",
           "value": "4bke30fdqsb8c4k87n226ktdf"
+        },
+        {
+          "name": "AWS_REGION",
+          "value": "us-east-1"
         }
       ],
       "environmentFiles": [],
