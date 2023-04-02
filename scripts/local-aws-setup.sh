@@ -7,17 +7,16 @@
 echo "Setting AWS environment variables for LocalStack"
 
 echo "AWS_ACCESS_KEY_ID=test"
-export AWS_ACCESS_KEY_ID=ASIASYHUNH5MLSP72AKP
+export AWS_ACCESS_KEY_ID=test
 
 echo "AWS_SECRET_ACCESS_KEY=test"
-export AWS_SECRET_ACCESS_KEY=rxM4DstHuX/wZN4ONhdGslTygwNYiX4OHC9NdE1u
+export AWS_SECRET_ACCESS_KEY=test
 
 echo "AWS_SESSION_TOKEN=test"
-export AWS_SESSION_TOKEN=FwoGZXIvYXdzEPr//////////wEaDHAi1lhIlmz9Ig6sNyLBAe/GzfssOuFlisAODx4F+RzySTBwpuzakd7jZwGjcmlOBK8XKoruaTed3obA5s+QY7BB8xZa1eM39FoOYxozt/Rl9AByHEho0SvL0oa/dsO8vfgMp7MwMcmaru8bLRvSDx9aakMxDuQo7Om0tPRFieQpGwIR/CQOQ+clC5xohxx0SIHaAq7cBGJj4HHtuD+ccxMN/gnsITtCxkI6YBL+rQkIT3D0nJnHc1xDGX7XFD5Fpp4RpXE+JX4uiJ+vbRUl21coveamoQYyLS7a3uAJG8s78/4F30kR/ClGIumwcWHjAcUG2ql8kWc5gP0X4rF6DL6DW0HVrg==
+export AWS_SESSION_TOKEN=test
 
 echo "AWS_DEFAULT_REGION=us-east-1"
 export AWS_DEFAULT_REGION=us-east-1
-
 
 # Wait for LocalStack to be ready, by inspecting the response from /health, see:
 # https://github.com/localstack/localstack/issues/4904#issuecomment-966315170
