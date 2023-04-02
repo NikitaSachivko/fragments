@@ -12,9 +12,9 @@ module.exports = async (req, res) => {
 
     // Validate the 'expand' parameter
     if (![0, 1].includes(expand)) {
-      return res.status(400).json(createErrorResponse({
+      return res.status(404).json(createErrorResponse({
         status: 'error',
-        code: 400,
+        code: 404,
         message: 'Invalid value for `expand` parameter. Only `1` or `0` is allowed.'
       }))
     }
