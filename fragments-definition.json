@@ -1,5 +1,5 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:189491134296:task-definition/fragments-task:3",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:189491134296:task-definition/fragments-task:9",
   "containerDefinitions": [
     {
       "name": "fragments-container",
