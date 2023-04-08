@@ -31,12 +31,12 @@ module.exports = async (req, res) => {
     fragment.save()
     logger.info("Fragment saved: %s", fragment.id)
   } catch (err) {
-    logger.error(`Can not create new fragment`)
+    logger.error(`Can not create new fragment: ${err}`)
 
     res
       .status(422)
       .json(
-        createErrorResponse(422, "Can not create new fragment",)
+        createErrorResponse(422, `Can not create new fragment`,)
       )
     return
   }
