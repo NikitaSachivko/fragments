@@ -95,13 +95,9 @@ user1@email.com:password1
 HTTP/1.1 200
 
 
-[Captures]
-fragment_ids_stringify: jsonpath "$.fragments[*].id"
-
-
 [Asserts]
-jsonpath "$.fragments[*].id" includes {{fragment1_id}}
-jsonpath "$.fragments[*].id" includes {{fragment2_id}}
+jsonpath "$.fragments[*].id" includes "{{fragment1_id}}"
+jsonpath "$.fragments[*].id" includes "{{fragment2_id}}"
 
 
 
@@ -134,12 +130,7 @@ user1@email.com:password1
 HTTP/1.1 200
 
 
-[Captures]
-fragment_ids_stringify: jsonpath "$.fragments[*].id"
-
-
 [Asserts]
-jsonpath "$.fragments[*].id" not includes {{fragment1_id}}
-
-jsonpath "$.fragments[*].id" includes {{fragment2_id}}
+jsonpath "$.fragments[*].id" != "{{fragment1_id}}"
+jsonpath "$.fragments[*].id" == "{{fragment2_id}}"
 
