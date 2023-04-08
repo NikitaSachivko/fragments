@@ -130,6 +130,7 @@ user1@email.com:password1
 HTTP/1.1 200
 
 
+
 [Asserts]
 jsonpath "$.fragments[*].id" != "{{fragment1_id}}"
 jsonpath "$.fragments[*].id" == "{{fragment2_id}}"
