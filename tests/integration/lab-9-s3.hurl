@@ -17,6 +17,7 @@ header "Location" matches "^http:\/\/localhost:9000\/v1\/fragments\/[A-Za-z0-9_-
 url: header "Location"
 
 
+
 # Get
 GET {{url}}
 [BasicAuth]
