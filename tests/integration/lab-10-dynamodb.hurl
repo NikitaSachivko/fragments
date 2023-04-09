@@ -120,7 +120,6 @@ user1@email.com:password1
 HTTP/1.1 404
 
 
-
 # Get all fragments
 GET http://localhost:9000/v1/fragments?expand=1
 
