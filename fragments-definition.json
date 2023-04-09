@@ -25,6 +25,10 @@
           "value": ""
         },
         {
+          "name": "AWS_DYNAMODB_TABLE_NAME",
+          "value": "fragments"
+        },
+        {
           "name": "PORT",
           "value": "9000"
         },
