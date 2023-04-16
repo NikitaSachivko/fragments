@@ -131,5 +131,5 @@ HTTP/1.1 200
 
 [Asserts]
 jsonpath "$.fragments[*].id" != "{{fragment1_id}}"
-jsonpath "$.fragments[*].id" == "{{fragment2_id}}"
+jsonpath "$.fragments[*].id" includes "{{fragment2_id}}"
 
