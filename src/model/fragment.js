@@ -149,6 +149,18 @@ class Fragment {
         return ["text/plain"]
       case "text/markdown":
         return ["text/plain", "text/markdown", "text/html"]
+      case "text/html":
+        return ["text/html", "text/plain"]
+      case "application/json":
+        return ["application/json", "text/plain"]
+      case "image/png":
+        return ["image/png", "image/jpeg", "image/webp", "image/gif"]
+      case "image/jpeg":
+        return ["image/png", "image/jpeg", "image/webp", "image/gif"]
+      case "image/webp":
+        return ["image/png", "image/jpeg", "image/webp", "image/gif"]
+      case "image/gif":
+        return ["image/png", "image/jpeg", "image/webp", "image/gif"]
       default:
         return []
     }
@@ -169,6 +181,14 @@ class Fragment {
       case 'text/html':
         return true
       case 'application/json':
+        return true
+      case 'image/png':
+        return true
+      case 'image/jpeg':
+        return true
+      case 'image/webp':
+        return true
+      case 'image/gif':
         return true
       default:
         return false

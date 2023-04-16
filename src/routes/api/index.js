@@ -35,8 +35,7 @@ router.get('/fragments/:id/info', rawBody(), require('./get/get.fragment.by-id.i
 
 router.delete('/fragments/:id', rawBody(), require('./delete/delete.fragment.by-id'))
 
-// Will be done in future
-// router.put('/fragments/:id', rawBody(), require('./put/put.fragment.byId'))
+router.put('/fragments/:id', rawBody(), require('./put/put.fragment.by-id'))
 
 // Use a raw body parser for POST, which will give a `Buffer` Object or `{}` at `req.body`
 // You can use Buffer.isBuffer(req.body) to test if it was parsed by the raw body parser.

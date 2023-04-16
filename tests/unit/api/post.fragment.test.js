@@ -63,7 +63,7 @@ describe('Testing POST request', () => {
       .set("Content-Type", "image/png")
       .send("http://imageurl")
 
-    expect(response.body.error.code).toEqual(415)
-    expect(response.body.error.message).toEqual("Unsupported Content-Type")
+    expect(response.body.status).toEqual("ok")
+    expect(response.body.fragment.type).toEqual("image/png")
   })
 })

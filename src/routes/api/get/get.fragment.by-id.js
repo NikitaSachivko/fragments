@@ -40,22 +40,16 @@ module.exports = async (req, res) => {
         return
       }
 
-      output = convert(type, buffer)
-
-      fragment.type = type
-      fragment.size = output.length
-
-      await fragment.setData(output)
-
-      fragment.save()
+      // Converting fragment content according to type
+      output = await convert(fragment.type, type, buffer)
     }
 
     // Convert the buffer to a string in utf8 encoding
-    // Fix XSS issue
-    const textPlain = req.sanitize(output.toString('utf8'))
+    const convertedData = type.includes("image") ? output : req.sanitize(output.toString('utf8'))
 
+    res.setHeader('Content-Length', convertedData.length)
     res.setHeader('Content-Type', type)
-    res.status(200).send(textPlain)
+    res.status(200).send(convertedData)
 
   } catch (error) {
     logger.error(`Error getting fragment with id "${id}": ${error}`)

@@ -105,7 +105,7 @@ describe('Testing GET request', () => {
 
   // Wrong convert: trying to convert .html back to .md
   // We don't support this right now
-  test('Wrong convert: Convertation from .html type to .md', async () => {
+  test('Convertation from .html type to .md', async () => {
     await request(app)
       .get(`/v1/fragments/${responsePostMd.body.fragment.id}.html`)
       .auth("user1@email.com", "password1")
@@ -114,15 +114,14 @@ describe('Testing GET request', () => {
       .get(`/v1/fragments/${responsePostMd.body.fragment.id}.md`)
       .auth("user1@email.com", "password1")
 
-    expect(responseGetHtml.body.error.code).toEqual(415)
-    expect(responseGetHtml.body.error.message).toContain('Type text/html can not be converted to: ".md"')
+    expect(responseGetHtml.text).toBe('Test *Fragment* **Data**')
   })
 
 
   // If don't need to convert if user prompted same type as we currently have
-  test('Convertation from .html type to .html', async () => {
+  test('Convertation from .html type to .md', async () => {
     const responseGet = await request(app)
-      .get(`/v1/fragments/${responsePostMd.body.fragment.id}. md`)
+      .get(`/v1/fragments/${responsePostMd.body.fragment.id}.md`)
       .auth("user1@email.com", "password1")
 
     expect(responseGet.text).toBe("Test *Fragment* **Data**")
