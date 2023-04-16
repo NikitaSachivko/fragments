@@ -16,6 +16,6 @@ module.exports = async (req, res) => {
 
   } catch (error) {
     logger.error(`Error getting fragment with id "${id}": ${error}`)
-    res.status(400).json(createErrorResponse(400, `No fragment with id = ${id}`))
+    res.status(404).json(createErrorResponse(404, `No fragment with id = ${id}`))
   }
 }

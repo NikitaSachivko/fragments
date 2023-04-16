@@ -1,6 +1,7 @@
 const request = require('supertest')
 const app = require('../../../src/app')
 const hash = require('../../../src/hash')
+const fetch = require('node-fetch')
 
 describe('Testing POST request', () => {
 
@@ -55,7 +56,7 @@ describe('Testing POST request', () => {
 
 
   //Testing unsupported content type
-  test('unsupported content type', async () => {
+  test('Adding image type', async () => {
 
     const response = await request(app)
       .post("/v1/fragments")
@@ -66,4 +67,36 @@ describe('Testing POST request', () => {
     expect(response.body.status).toEqual("ok")
     expect(response.body.fragment.type).toEqual("image/png")
   })
+
+
+  //Testing unsupported content type
+  test('Adding wrong type', async () => {
+
+    const response = await request(app)
+      .post("/v1/fragments")
+      .auth("user1@email.com", "password1")
+      .set("Content-Type", "image/p")
+      .send("http://imageurl")
+
+    expect(response.body.status).toEqual("error")
+    expect(response.body.error.code).toBe(415)
+  })
+
+
+  //Testing unsupported content type
+  test('Adding image/jpeg type', async () => {
+
+    const responseImg = await fetch("https://png.pngtree.com/png-clipart/20191120/original/pngtree-pink-watercolor-brushes-png-image_5054156.jpg")
+
+    const buffer = await responseImg.buffer()
+    const response = await request(app)
+      .post("/v1/fragments")
+      .auth("user1@email.com", "password1")
+      .set("Content-Type", "image/jpeg")
+      .send(buffer)
+
+    expect(response.status).toBe(201)
+    expect(response.body.fragment.type).toEqual("image/jpeg")
+  })
+
 })

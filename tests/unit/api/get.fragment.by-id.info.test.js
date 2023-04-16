@@ -42,7 +42,7 @@ describe('Testing GET /v1/fragments/:id/info', () => {
     const fragment = responseGetInfo.body
 
     expect(fragment.status).toEqual("error")
-    expect(fragment.error.code).toEqual(400)
+    expect(fragment.error.code).toEqual(404)
     expect(fragment.error.message).toBe(`No fragment with id = ${wrongId}`)
 
   })

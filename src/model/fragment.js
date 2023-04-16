@@ -186,6 +186,8 @@ class Fragment {
         return true
       case 'image/jpeg':
         return true
+      case 'image/jpg':
+        return true
       case 'image/webp':
         return true
       case 'image/gif':
