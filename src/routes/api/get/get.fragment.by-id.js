@@ -20,6 +20,7 @@ module.exports = async (req, res) => {
     // Get the fragment by its id and owner id
     const fragment = await Fragment.byId(ownerId, id)
 
+    console.log(fragment)
     // Get the data of the fragment
     const buffer = await fragment.getData()
 
