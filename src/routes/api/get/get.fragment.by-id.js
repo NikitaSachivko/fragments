@@ -21,8 +21,13 @@ module.exports = async (req, res) => {
     const fragment = await Fragment.byId(ownerId, id)
 
     console.log(fragment)
+    let buffer
     // Get the data of the fragment
-    const buffer = await fragment.getData()
+    try {
+      buffer = await fragment.getData()
+    } catch (err) {
+      res.status(404).json(createErrorResponse(404, `Error getting fragment with id "${id}": ${err} ${fragment}`))
+    }
 
     const formats = fragment.formats
 
