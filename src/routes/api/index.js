@@ -33,6 +33,8 @@ router.get('/fragments/:id', rawBody(), require('./get/get.fragment.by-id'))
 
 router.get('/fragments/:id/info', rawBody(), require('./get/get.fragment.by-id.info'))
 
+router.get('/fragments/:id/formats', rawBody(), require('./get/get.fragment.formats'))
+
 router.delete('/fragments/:id', rawBody(), require('./delete/delete.fragment.by-id'))
 
 router.put('/fragments/:id', rawBody(), require('./put/put.fragment.by-id'))

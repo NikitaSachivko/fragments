@@ -1,4 +1,3 @@
-####################################################################
 #Stage: 0 Downloading dependencies
 FROM node:16.13.2-alpine@sha256:2f50f4a428f8b5280817c9d4d896dbee03f072e93f4e0c70b90cc84bd1fcfe0d AS dependencies
 
@@ -17,7 +16,6 @@ COPY package*.json ./
 
 RUN npm install && npm cache clean --force
 
-####################################################################
 #Stage: 1 setting up build files
 FROM node:16.13.2-alpine@sha256:2f50f4a428f8b5280817c9d4d896dbee03f072e93f4e0c70b90cc84bd1fcfe0d AS build
 
